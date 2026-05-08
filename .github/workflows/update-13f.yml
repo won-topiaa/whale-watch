@@ -1,0 +1,46 @@
+name: Update 13F holdings
+
+on:
+  schedule:
+    # Run daily at 11:30 UTC. The script no-ops if no new filing is detected
+    # because we always rewrite from the same latest filing per investor.
+    # 13F deadline is 45 days after quarter-end, but funds drip filings throughout —
+    # daily catches them as they land without hammering SEC.
+    - cron: "30 11 * * *"
+  workflow_dispatch:  # allow manual run from Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Fetch 13F filings
+        env:
+          EDGAR_USER_AGENT: ${{ secrets.EDGAR_USER_AGENT }}
+          OPENFIGI_API_KEY: ${{ secrets.OPENFIGI_API_KEY }}
+        run: python scripts/fetch_13f.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/investors.json data/cusip_cache.json
+          if git diff --staged --quiet; then
+            echo "no changes"
+          else
+            STAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
+            git commit -m "data: refresh 13F holdings ($STAMP)"
+            git push
+          fi
