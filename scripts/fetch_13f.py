@@ -45,10 +45,34 @@ session = requests.Session()
 session.headers.update({"User-Agent": UA, "Accept-Encoding": "gzip, deflate"})
 
 SEC_RATE_SLEEP = 0.15  # SEC asks for <=10 req/sec
+SEC_TIMEOUT = 60  # SEC servers occasionally slow; default 30s was tripping
+SEC_RETRIES = 3
 # OpenFIGI v3 mapping: 10 jobs/request unauthenticated, 100 with API key.
 # Rate: 25 req/6s unauth, 250 req/6s with key.
 OPENFIGI_BATCH = 100 if OPENFIGI_KEY else 10
 OPENFIGI_SLEEP = 0.3 if OPENFIGI_KEY else 6.5
+
+
+def sec_get(url: str, *, timeout: int = SEC_TIMEOUT) -> requests.Response:
+    """GET with retry on transient errors (timeouts, 5xx, connection drops)."""
+    last: Exception | None = None
+    for attempt in range(SEC_RETRIES):
+        try:
+            r = session.get(url, timeout=timeout)
+            if r.status_code >= 500:
+                raise requests.HTTPError(f"{r.status_code} from {url}", response=r)
+            r.raise_for_status()
+            return r
+        except (requests.Timeout, requests.ConnectionError, requests.HTTPError) as e:
+            # Don't retry on 4xx (other than from the >=500 raise above)
+            if isinstance(e, requests.HTTPError) and e.response is not None and 400 <= e.response.status_code < 500:
+                raise
+            last = e
+            wait = 2 ** attempt  # 1s, 2s, 4s
+            print(f"    retry {attempt+1}/{SEC_RETRIES} after {type(e).__name__}: sleeping {wait}s", file=sys.stderr)
+            time.sleep(wait)
+    assert last is not None
+    raise last
 
 
 # ───────────── EDGAR fetchers ─────────────
@@ -56,10 +80,12 @@ OPENFIGI_SLEEP = 0.3 if OPENFIGI_KEY else 6.5
 def get_latest_13f(cik: str) -> dict | None:
     cik_padded = str(int(cik)).zfill(10)
     url = f"https://data.sec.gov/submissions/CIK{cik_padded}.json"
-    r = session.get(url, timeout=30)
-    if r.status_code == 404:
-        return None
-    r.raise_for_status()
+    try:
+        r = sec_get(url)
+    except requests.HTTPError as e:
+        if e.response is not None and e.response.status_code == 404:
+            return None
+        raise
     sub = r.json()
     recent = sub.get("filings", {}).get("recent", {})
     forms = recent.get("form", [])
@@ -86,8 +112,7 @@ def fetch_filing_xmls(filing: dict) -> tuple[bytes | None, bytes | None]:
     cik_int = filing["cik_int"]
     acc_no = filing["accession"].replace("-", "")
     base = f"https://www.sec.gov/Archives/edgar/data/{cik_int}/{acc_no}"
-    r = session.get(f"{base}/index.json", timeout=30)
-    r.raise_for_status()
+    r = sec_get(f"{base}/index.json")
     items = r.json().get("directory", {}).get("item", [])
 
     xml_files = [it["name"] for it in items if it.get("name", "").lower().endswith(".xml")]
@@ -110,14 +135,13 @@ def fetch_filing_xmls(filing: dict) -> tuple[bytes | None, bytes | None]:
     primary_xml = None
     if info_name:
         time.sleep(SEC_RATE_SLEEP)
-        r = session.get(f"{base}/{info_name}", timeout=45)
-        r.raise_for_status()
-        info_xml = r.content
+        info_xml = sec_get(f"{base}/{info_name}").content
     if primary_name:
         time.sleep(SEC_RATE_SLEEP)
-        r = session.get(f"{base}/{primary_name}", timeout=30)
-        if r.ok:
-            primary_xml = r.content
+        try:
+            primary_xml = sec_get(f"{base}/{primary_name}").content
+        except requests.RequestException:
+            primary_xml = None  # primary_doc is for cover-page totals, not critical
     return info_xml, primary_xml
 
 

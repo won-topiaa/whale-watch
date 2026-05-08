@@ -27,6 +27,8 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Fetch 13F filings
+        id: fetch
+        continue-on-error: true   # commit partial data even if some investors fail
         env:
           EDGAR_USER_AGENT: ${{ secrets.EDGAR_USER_AGENT }}
           OPENFIGI_API_KEY: ${{ secrets.OPENFIGI_API_KEY }}
@@ -44,3 +46,9 @@ jobs:
             git commit -m "data: refresh 13F holdings ($STAMP)"
             git push
           fi
+
+      - name: Fail job if fetcher reported errors
+        if: steps.fetch.outcome == 'failure'
+        run: |
+          echo "::warning::fetch_13f.py reported partial failures — see Fetch 13F filings step"
+          exit 1
