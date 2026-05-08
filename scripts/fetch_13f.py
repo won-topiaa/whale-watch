@@ -79,42 +79,58 @@ def get_latest_13f(cik: str) -> dict | None:
     return None
 
 
-def fetch_information_table_xml(filing: dict) -> bytes | None:
+def fetch_filing_xmls(filing: dict) -> tuple[bytes | None, bytes | None]:
+    """Returns (information_table_xml, primary_doc_xml) for the filing."""
     cik_int = filing["cik_int"]
     acc_no = filing["accession"].replace("-", "")
-    idx_url = f"https://www.sec.gov/Archives/edgar/data/{cik_int}/{acc_no}/index.json"
-    r = session.get(idx_url, timeout=30)
+    base = f"https://www.sec.gov/Archives/edgar/data/{cik_int}/{acc_no}"
+    r = session.get(f"{base}/index.json", timeout=30)
     r.raise_for_status()
     items = r.json().get("directory", {}).get("item", [])
+
+    xml_files = [it["name"] for it in items if it.get("name", "").lower().endswith(".xml")]
     info_name = None
-    for it in items:
-        n = it.get("name", "")
+    primary_name = None
+    for n in xml_files:
         nl = n.lower()
-        if nl.endswith(".xml") and "informationtable" in nl.replace("_", "").replace("-", ""):
+        flat = nl.replace("_", "").replace("-", "")
+        if "primarydoc" in flat or nl == "primary_doc.xml":
+            primary_name = n
+        elif "informationtable" in flat:
             info_name = n
-            break
+    # Fallback: info table = first .xml that isn't primary
     if not info_name:
-        # Fallback: any .xml that isn't the primary doc
-        for it in items:
-            n = it.get("name", "")
-            if n.lower().endswith(".xml") and n != filing["primary_doc"]:
+        for n in xml_files:
+            if n != primary_name:
                 info_name = n
                 break
-    if not info_name:
-        return None
-    time.sleep(SEC_RATE_SLEEP)
-    xml_url = f"https://www.sec.gov/Archives/edgar/data/{cik_int}/{acc_no}/{info_name}"
-    r = session.get(xml_url, timeout=45)
-    r.raise_for_status()
-    return r.content
+    info_xml = None
+    primary_xml = None
+    if info_name:
+        time.sleep(SEC_RATE_SLEEP)
+        r = session.get(f"{base}/{info_name}", timeout=45)
+        r.raise_for_status()
+        info_xml = r.content
+    if primary_name:
+        time.sleep(SEC_RATE_SLEEP)
+        r = session.get(f"{base}/{primary_name}", timeout=30)
+        if r.ok:
+            primary_xml = r.content
+    return info_xml, primary_xml
+
+
+def _strip_namespaces(xml_text: str) -> str:
+    """Some filers use a default xmlns, others a prefixed one (ns1:infoTable).
+    Strip both so ElementTree XPath doesn't need a namespace map."""
+    xml_text = re.sub(r'\sxmlns(:\w+)?="[^"]*"', "", xml_text)
+    xml_text = re.sub(r"<(/?)\w+:", r"<\1", xml_text)
+    return xml_text
 
 
 def parse_holdings(xml_bytes: bytes) -> list[dict]:
     if not xml_bytes:
         return []
-    text = xml_bytes.decode("utf-8", errors="ignore")
-    # Strip default xmlns so XPath doesn't need namespace gymnastics
-    text = re.sub(r'\sxmlns="[^"]*"', "", text, count=1)
+    text = _strip_namespaces(xml_bytes.decode("utf-8", errors="ignore"))
     root = ET.fromstring(text)
     out = []
     for it in root.findall(".//infoTable"):
@@ -127,6 +143,31 @@ def parse_holdings(xml_bytes: bytes) -> list[dict]:
             "sh_type": (it.findtext("shrsOrPrnAmt/sshPrnamtType") or "").strip(),
             "put_call": (it.findtext("putCall") or "").strip(),
         })
+    return out
+
+
+def parse_summary(primary_doc_xml: bytes) -> dict:
+    """Read tableValueTotal and tableEntryTotal from the cover-page primary_doc.xml.
+    SEC instructions require dollars as of Q4 2022, but some filers still report in
+    thousands. We use the cover page totals to detect this and scale individual
+    values to actual dollars."""
+    if not primary_doc_xml:
+        return {}
+    text = _strip_namespaces(primary_doc_xml.decode("utf-8", errors="ignore"))
+    try:
+        root = ET.fromstring(text)
+    except ET.ParseError:
+        return {}
+    def f(t):
+        n = root.find(f".//{t}")
+        return n.text.strip() if n is not None and n.text else ""
+    out = {}
+    if (v := f("tableValueTotal")):
+        try: out["table_value_total"] = float(v)
+        except ValueError: pass
+    if (v := f("tableEntryTotal")):
+        try: out["table_entry_total"] = int(float(v))
+        except ValueError: pass
     return out
 
 
@@ -232,8 +273,23 @@ def main() -> int:
                 continue
             print(f"    {filing['form']}  acc={filing['accession']}  period={filing['period_of_report']}")
             time.sleep(SEC_RATE_SLEEP)
-            xml = fetch_information_table_xml(filing)
-            raw = parse_holdings(xml)
+            info_xml, primary_xml = fetch_filing_xmls(filing)
+            raw = parse_holdings(info_xml)
+            summary = parse_summary(primary_xml)
+
+            # Detect filings still reported in thousands (some filers haven't updated to
+            # the post-2022 dollars convention). 13F filing threshold is $100M, so any
+            # multi-position filing with cover-page total under $50M is almost certainly
+            # in thousands.
+            tvt = summary.get("table_value_total")
+            tet = summary.get("table_entry_total", 0)
+            scale = 1
+            if tvt is not None and tvt < 50_000_000 and tet >= 10:
+                scale = 1000
+                print(f"    note: filing reports values in thousands (tvt=${tvt:,.0f}, entries={tet}) — scaling x1000")
+                for h in raw:
+                    h["value_usd"] *= 1000
+
             holdings = aggregate(raw)
             holdings = resolve_tickers(holdings, cache)
 
