@@ -45,8 +45,10 @@ session = requests.Session()
 session.headers.update({"User-Agent": UA, "Accept-Encoding": "gzip, deflate"})
 
 SEC_RATE_SLEEP = 0.15  # SEC asks for <=10 req/sec
-OPENFIGI_BATCH = 100
-OPENFIGI_SLEEP = 6.5 if not OPENFIGI_KEY else 0.3
+# OpenFIGI v3 mapping: 10 jobs/request unauthenticated, 100 with API key.
+# Rate: 25 req/6s unauth, 250 req/6s with key.
+OPENFIGI_BATCH = 100 if OPENFIGI_KEY else 10
+OPENFIGI_SLEEP = 0.3 if OPENFIGI_KEY else 6.5
 
 
 # ───────────── EDGAR fetchers ─────────────
@@ -120,10 +122,16 @@ def fetch_filing_xmls(filing: dict) -> tuple[bytes | None, bytes | None]:
 
 
 def _strip_namespaces(xml_text: str) -> str:
-    """Some filers use a default xmlns, others a prefixed one (ns1:infoTable).
-    Strip both so ElementTree XPath doesn't need a namespace map."""
+    """Filers use varying namespace styles: default xmlns, prefixed xmlns:nsX,
+    or extra prefixed attributes like xsi:schemaLocation. Strip all of them so
+    ElementTree XPath doesn't need a namespace map and won't trip on
+    'unbound prefix' errors."""
+    # 1) Strip namespace declarations: xmlns="..." and xmlns:foo="..."
     xml_text = re.sub(r'\sxmlns(:\w+)?="[^"]*"', "", xml_text)
+    # 2) Strip prefix from element names: <foo:bar> </foo:bar>
     xml_text = re.sub(r"<(/?)\w+:", r"<\1", xml_text)
+    # 3) Strip prefix from attribute names: foo:bar="..."  ->  bar="..."
+    xml_text = re.sub(r'\s\w+:(\w+)(\s*=)', r' \1\2', xml_text)
     return xml_text
 
 
@@ -227,8 +235,10 @@ def resolve_tickers(holdings: list[dict], cache: dict) -> list[dict]:
                 r.raise_for_status()
                 rows = r.json()
             except Exception as e:
+                # Don't cache on failure — leave for next run to retry.
                 print(f"    openfigi batch failed: {e}", file=sys.stderr)
-                rows = [{} for _ in batch]
+                time.sleep(OPENFIGI_SLEEP)
+                continue
             for cusip, row in zip(batch, rows):
                 ticker = ""
                 data = row.get("data") if isinstance(row, dict) else None
