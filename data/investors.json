@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-05-14T13:11:49.923343+00:00",
+  "last_updated": "2026-05-15T13:12:09.599894+00:00",
   "schema_version": 1,
   "note": "Holdings are populated by scripts/fetch_13f.py. Until the first run, holdings arrays are empty and the UI shows a 'data pending' state.",
   "investors": [
@@ -473,189 +473,189 @@
       "color": "#06b6d4",
       "initials": "SK",
       "tagline": "극도로 보수적인 가치투자자. 안전마진 강조.",
-      "filing_date": "2026-02-13",
-      "period_of_report": "2025-12-31",
-      "total_value_usd": 5278590000.0,
+      "filing_date": "2026-05-14",
+      "period_of_report": "2026-03-31",
+      "total_value_usd": 5115380000.0,
       "holdings_count": 22,
       "holdings": [
         {
-          "cusip": "76131D103",
-          "name": "RESTAURANT BRANDS INTL INC",
-          "value_usd": 551325000.0,
-          "shares": 8080112,
-          "weight": 10.4446,
-          "ticker": "QSR"
-        },
-        {
           "cusip": "023135106",
           "name": "AMAZON COM INC",
-          "value_usd": 489659000.0,
-          "shares": 2121391,
-          "weight": 9.2763,
+          "value_usd": 649543000.0,
+          "shares": 3118754,
+          "weight": 12.6978,
           "ticker": "AMZN"
         },
         {
-          "cusip": "G96629103",
-          "name": "WILLIS TOWERS WATSON PLC LTD",
-          "value_usd": 446108000.0,
-          "shares": 1357601,
-          "weight": 8.4513,
-          "ticker": ""
-        },
-        {
-          "cusip": "036752103",
-          "name": "ELEVANCE HEALTH INC FORMERLY",
-          "value_usd": 444954000.0,
-          "shares": 1269302,
-          "weight": 8.4294,
-          "ticker": "ELV"
-        },
-        {
-          "cusip": "907818108",
-          "name": "UNION PAC CORP",
-          "value_usd": 376416000.0,
-          "shares": 1627254,
-          "weight": 7.131,
-          "ticker": "UNP"
+          "cusip": "76131D103",
+          "name": "RESTAURANT BRANDS INTL INC",
+          "value_usd": 597208000.0,
+          "shares": 8080112,
+          "weight": 11.6748,
+          "ticker": "QSR"
         },
         {
           "cusip": "95082P105",
           "name": "WESCO INTL INC",
-          "value_usd": 347103000.0,
-          "shares": 1418831,
-          "weight": 6.5757,
+          "value_usd": 393159000.0,
+          "shares": 1436881,
+          "weight": 7.6858,
           "ticker": "WCC"
+        },
+        {
+          "cusip": "907818108",
+          "name": "UNION PAC CORP",
+          "value_usd": 373876000.0,
+          "shares": 1540995,
+          "weight": 7.3089,
+          "ticker": "UNP"
+        },
+        {
+          "cusip": "036752103",
+          "name": "ELEVANCE HEALTH INC FORMERLY",
+          "value_usd": 373301000.0,
+          "shares": 1275154,
+          "weight": 7.2976,
+          "ticker": "ELV"
         },
         {
           "cusip": "02079K107",
           "name": "ALPHABET INC",
-          "value_usd": 341157000.0,
-          "shares": 1087181,
-          "weight": 6.463,
+          "value_usd": 338819000.0,
+          "shares": 1181131,
+          "weight": 6.6235,
           "ticker": "GOOG"
-        },
-        {
-          "cusip": "31620M106",
-          "name": "FIDELITY NATL INFORMATION SV",
-          "value_usd": 299323000.0,
-          "shares": 4503801,
-          "weight": 5.6705,
-          "ticker": "FIS"
-        },
-        {
-          "cusip": "256677105",
-          "name": "DOLLAR GEN CORP NEW",
-          "value_usd": 273881000.0,
-          "shares": 2062821,
-          "weight": 5.1885,
-          "ticker": "DG"
         },
         {
           "cusip": "31488V107",
           "name": "FERGUSON ENTERPRISES INC",
-          "value_usd": 253138000.0,
-          "shares": 1137035,
-          "weight": 4.7956,
+          "value_usd": 336457000.0,
+          "shares": 1442411,
+          "weight": 6.5774,
           "ticker": "FERG"
+        },
+        {
+          "cusip": "G96629103",
+          "name": "WILLIS TOWERS WATSON PLC LTD",
+          "value_usd": 259632000.0,
+          "shares": 893126,
+          "weight": 5.0755,
+          "ticker": ""
+        },
+        {
+          "cusip": "G0403H108",
+          "name": "AON PLC",
+          "value_usd": 248218000.0,
+          "shares": 769000,
+          "weight": 4.8524,
+          "ticker": ""
+        },
+        {
+          "cusip": "92826C839",
+          "name": "VISA INC",
+          "value_usd": 211978000.0,
+          "shares": 701355,
+          "weight": 4.1439,
+          "ticker": "V"
+        },
+        {
+          "cusip": "879369106",
+          "name": "TELEFLEX INCORPORATED",
+          "value_usd": 190778000.0,
+          "shares": 1595000,
+          "weight": 3.7295,
+          "ticker": "TFX"
         },
         {
           "cusip": "26969P108",
           "name": "EAGLE MATLS INC",
-          "value_usd": 244967000.0,
-          "shares": 1185248,
-          "weight": 4.6408,
+          "value_usd": 169134000.0,
+          "shares": 892763,
+          "weight": 3.3064,
           "ticker": "EXP"
-        },
-        {
-          "cusip": "G61188127",
-          "name": "LIBERTY GLOBAL LTD",
-          "value_usd": 230568000.0,
-          "shares": 20884781,
-          "weight": 4.368,
-          "ticker": ""
         },
         {
           "cusip": "372460105",
           "name": "GENUINE PARTS CO",
-          "value_usd": 182729000.0,
-          "shares": 1486088,
-          "weight": 3.4617,
+          "value_usd": 157604000.0,
+          "shares": 1490348,
+          "weight": 3.081,
           "ticker": "GPC"
         },
         {
-          "cusip": "337738108",
-          "name": "FISERV INC",
-          "value_usd": 147774000.0,
-          "shares": 2200000,
-          "weight": 2.7995,
-          "ticker": "FISV"
-        },
-        {
-          "cusip": "G25508105",
-          "name": "CRH PLC",
-          "value_usd": 133905000.0,
-          "shares": 1072957,
-          "weight": 2.5368,
+          "cusip": "G61188127",
+          "name": "LIBERTY GLOBAL LTD",
+          "value_usd": 157150000.0,
+          "shares": 13397247,
+          "weight": 3.0721,
           "ticker": ""
         },
         {
           "cusip": "G4412G101",
           "name": "HERBALIFE LTD",
-          "value_usd": 119359000.0,
+          "value_usd": 136305000.0,
           "shares": 9259844,
-          "weight": 2.2612,
+          "weight": 2.6646,
           "ticker": ""
-        },
-        {
-          "cusip": "60855R100",
-          "name": "MOLINA HEALTHCARE INC",
-          "value_usd": 108463000.0,
-          "shares": 625000,
-          "weight": 2.0548,
-          "ticker": "MOH"
-        },
-        {
-          "cusip": "40054J109",
-          "name": "GRUPO AEROMEXICO SAB DE CV",
-          "value_usd": 106620000.0,
-          "shares": 4855180,
-          "weight": 2.0199,
-          "ticker": "AERO"
         },
         {
           "cusip": "36165L108",
           "name": "GDS HLDGS LTD",
-          "value_usd": 106264000.0,
+          "value_usd": 122676000.0,
           "shares": 3044818,
-          "weight": 2.0131,
+          "weight": 2.3982,
           "ticker": "GDS"
         },
         {
           "cusip": "03064D108",
           "name": "AMERICOLD REALTY TRUST INC",
-          "value_usd": 44697000.0,
-          "shares": 3475685,
-          "weight": 0.8468,
+          "value_usd": 89168000.0,
+          "shares": 7780800,
+          "weight": 1.7431,
           "ticker": "COLD"
         },
         {
-          "cusip": "G61188101",
-          "name": "LIBERTY GLOBAL LTD",
-          "value_usd": 23176000.0,
-          "shares": 2080456,
-          "weight": 0.4391,
+          "cusip": "60855R100",
+          "name": "MOLINA HEALTHCARE INC",
+          "value_usd": 84460000.0,
+          "shares": 633609,
+          "weight": 1.6511,
+          "ticker": "MOH"
+        },
+        {
+          "cusip": "40054J109",
+          "name": "GRUPO AEROMEXICO SAB DE CV",
+          "value_usd": 68371000.0,
+          "shares": 4880188,
+          "weight": 1.3366,
+          "ticker": "AERO"
+        },
+        {
+          "cusip": "G66721104",
+          "name": "NORWEGIAN CRUISE LINE HLDGS",
+          "value_usd": 67881000.0,
+          "shares": 3630000,
+          "weight": 1.327,
           "ticker": ""
         },
         {
-          "cusip": "87507T101",
-          "name": "TAMBORAN RES CORP",
-          "value_usd": 7004000.0,
-          "shares": 257226,
-          "weight": 0.1327,
-          "ticker": "TBN"
+          "cusip": "92243G108",
+          "name": "VAXCYTE INC",
+          "value_usd": 46488000.0,
+          "shares": 800000,
+          "weight": 0.9088,
+          "ticker": "PCVX"
+        },
+        {
+          "cusip": "67011P100",
+          "name": "DNOW INC",
+          "value_usd": 43174000.0,
+          "shares": 3625000,
+          "weight": 0.844,
+          "ticker": "DNOW"
         }
       ],
-      "accession_number": "0001061768-26-000005"
+      "accession_number": "0001061768-26-000007"
     },
     {
       "id": "li-lu",
@@ -757,45 +757,37 @@
       "color": "#10b981",
       "initials": "MP",
       "tagline": "버핏 추종자. 4-5종목 초집중 투자.",
-      "filing_date": "2026-02-13",
-      "period_of_report": "2025-12-31",
-      "total_value_usd": 402040227.0,
-      "holdings_count": 4,
+      "filing_date": "2026-05-14",
+      "period_of_report": "2026-03-31",
+      "total_value_usd": 422885142.0,
+      "holdings_count": 3,
       "holdings": [
         {
           "cusip": "93627C101",
           "name": "WARRIOR MET COAL INC",
-          "value_usd": 158691099.0,
-          "shares": 1799831,
-          "weight": 39.4714,
+          "value_usd": 168678908.0,
+          "shares": 1810831,
+          "weight": 39.8876,
           "ticker": "HCC"
         },
         {
           "cusip": "H8817H100",
           "name": "TRANSOCEAN LTD",
-          "value_usd": 111675749.0,
-          "shares": 27040133,
-          "weight": 27.7773,
+          "value_usd": 135203415.0,
+          "shares": 20392672,
+          "weight": 31.9717,
           "ticker": ""
         },
         {
           "cusip": "020764106",
           "name": "ALPHA METALLURGICAL RESOUR I",
-          "value_usd": 108534840.0,
-          "shares": 543000,
-          "weight": 26.996,
+          "value_usd": 119002819.0,
+          "shares": 579738,
+          "weight": 28.1407,
           "ticker": "AMR"
-        },
-        {
-          "cusip": "G9460G101",
-          "name": "VALARIS LTD",
-          "value_usd": 23138539.0,
-          "shares": 459098,
-          "weight": 5.7553,
-          "ticker": ""
         }
       ],
-      "accession_number": "0001549575-26-000002"
+      "accession_number": "0001549575-26-000009"
     },
     {
       "id": "dalio",
