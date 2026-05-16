@@ -85,6 +85,143 @@ body{
 }
 .stat-val.small{font-size:24px;font-family:'Fira Code',monospace;font-weight:500;letter-spacing:-.01em;}
 
+/* ── FEATURED INVESTOR BOX ── */
+.featured{max-width:1600px;margin:80px auto 0;padding:0 32px;}
+.fbox{
+  border:1px solid var(--ink);
+  background:#fff;
+  padding:30px 40px 36px;
+  position:relative;
+}
+.fbox-meta{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;
+  margin-bottom:32px;padding-bottom:18px;
+  border-bottom:1px solid var(--rule);
+}
+.fbox-meta-lbl{
+  font-family:'Fira Code',monospace;font-weight:500;
+  font-size:10px;color:var(--ink-3);
+  text-transform:uppercase;letter-spacing:.16em;
+}
+.fbox-nav{display:flex;align-items:center;gap:12px;}
+.fbox-counter{
+  font-family:'Fira Code',monospace;font-weight:400;
+  font-size:11px;color:var(--ink-3);
+  text-transform:uppercase;letter-spacing:.1em;
+  min-width:50px;text-align:right;
+}
+.fbox-counter b{color:var(--ink);font-weight:600;}
+.fbox-arrow{
+  width:34px;height:34px;border:1px solid var(--ink);
+  background:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fira Code',monospace;font-size:15px;font-weight:500;
+  color:var(--ink);transition:all .15s;
+  padding:0;
+}
+.fbox-arrow:hover{background:var(--blue);color:#fff;border-color:var(--blue);}
+.fbox-arrow:disabled{opacity:.22;cursor:not-allowed;}
+.fbox-arrow:disabled:hover{background:#fff;color:var(--ink);border-color:var(--ink);}
+
+.fbox-content{transition:opacity .22s;}
+.fbox-content.fading{opacity:0;}
+
+.fbox-body{
+  display:grid;
+  grid-template-columns: 300px 1fr;
+  gap:48px;
+  align-items:start;
+}
+.fbox-portrait{
+  width:240px;height:240px;border-radius:50%;
+  border:2px solid var(--blue);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:78px;color:var(--blue);
+  letter-spacing:-.04em;
+  background:#fff;
+  overflow:hidden;
+  flex-shrink:0;
+}
+.fbox-portrait img{width:100%;height:100%;object-fit:cover;display:block;}
+.fbox-info{margin-top:22px;}
+.fbox-style{
+  font-family:'Fira Code',monospace;font-weight:500;
+  font-size:10px;color:var(--blue);
+  text-transform:uppercase;letter-spacing:.16em;
+  margin-bottom:10px;
+}
+.fbox-name{
+  font-weight:800;font-size:36px;line-height:.96;
+  letter-spacing:-.02em;text-transform:uppercase;
+  margin-bottom:6px;word-break:keep-all;
+}
+.fbox-name-ko{font-size:13px;color:var(--ink-3);font-weight:400;margin-bottom:4px;}
+.fbox-fund{
+  font-family:'Fira Code',monospace;font-weight:400;font-size:11px;
+  color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em;
+}
+
+.fbox-right{display:flex;flex-direction:column;gap:24px;}
+.fbox-chart-row{
+  display:grid;grid-template-columns:260px 1fr;gap:32px;
+  align-items:center;
+}
+.fbox-donut{width:260px;height:260px;flex-shrink:0;}
+.fbox-donut-cy{
+  font-family:'Fira Code',monospace;font-weight:600;
+  font-size:18px;fill:var(--ink);text-anchor:middle;letter-spacing:-.01em;
+}
+.fbox-donut-lbl{
+  font-family:'Fira Code',monospace;font-weight:400;
+  font-size:8px;fill:var(--ink-3);text-anchor:middle;
+  letter-spacing:.16em;text-transform:uppercase;
+}
+.fbox-donut path{transition:opacity .15s;}
+.fbox-donut path:hover{opacity:.7;}
+
+.fbox-legend{display:flex;flex-direction:column;gap:0;}
+.legend-row{
+  display:flex;align-items:center;gap:10px;
+  padding:7px 0;border-bottom:1px solid var(--rule-2);
+}
+.legend-row:last-child{border-bottom:none;}
+.legend-swatch{width:9px;height:9px;flex-shrink:0;background:var(--blue);}
+.legend-tk{
+  font-family:'Fira Code',monospace;font-weight:600;font-size:11px;
+  width:78px;flex-shrink:0;letter-spacing:.02em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.legend-name{
+  font-family:'Fira Code',monospace;font-weight:400;font-size:10px;
+  color:var(--ink-3);flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.legend-pct{
+  font-family:'Fira Code',monospace;font-weight:500;font-size:11px;
+  color:var(--ink);flex-shrink:0;
+}
+
+.fbox-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  padding-top:24px;border-top:1px solid var(--rule);
+}
+.fbox-stat{padding-right:18px;border-right:1px solid var(--rule);}
+.fbox-stat:last-child{border-right:none;padding-right:0;}
+.fbox-stat-lbl{
+  font-family:'Fira Code',monospace;font-weight:400;
+  font-size:9px;color:var(--ink-3);
+  text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px;
+}
+.fbox-stat-val{font-weight:700;font-size:20px;letter-spacing:-.01em;line-height:1;}
+.fbox-stat-val.small{font-family:'Fira Code',monospace;font-weight:500;font-size:13px;letter-spacing:0;}
+
+.fbox-empty{
+  font-family:'Fira Code',monospace;font-weight:400;font-size:11px;
+  color:var(--ink-3);text-transform:uppercase;letter-spacing:.1em;
+  padding:24px 0;text-align:center;
+}
+
 /* ── MATRIX ── */
 .matrix-wrap{max-width:1600px;margin:80px auto 0;}
 .matrix-head{
@@ -302,6 +439,18 @@ body{
   .matrix-head{padding:0 18px 20px;}
   .stats{padding:0 18px;}
   .foot{padding:36px 18px 28px;}
+  .featured{padding:0 18px;margin-top:56px;}
+  .fbox{padding:24px 22px 28px;}
+  .fbox-body{grid-template-columns:1fr;gap:20px;}
+  .fbox-portrait{margin:0 auto;width:180px;height:180px;font-size:58px;}
+  .fbox-info{text-align:center;margin-top:14px;}
+  .fbox-name{font-size:28px;}
+  .fbox-chart-row{grid-template-columns:1fr;gap:18px;}
+  .fbox-donut{width:220px;height:220px;margin:0 auto;}
+  .fbox-stats{grid-template-columns:repeat(2,1fr);gap:18px 0;}
+  .fbox-stat{padding:14px 14px;border-right:1px solid var(--rule);}
+  .fbox-stat:nth-child(2){border-right:none;}
+  .fbox-stat:nth-child(1),.fbox-stat:nth-child(2){border-bottom:1px solid var(--rule);padding-bottom:18px;}
 }
 @media (max-width:680px){
   .hdr{padding:14px 18px;}
@@ -350,6 +499,22 @@ body{
   </div>
 </section>
 
+<section class="featured">
+  <div class="fbox">
+    <div class="fbox-meta">
+      <div class="fbox-meta-lbl">Featured Investor</div>
+      <div class="fbox-nav">
+        <span class="fbox-counter"><b id="fboxCur">01</b> / <span id="fboxTot">10</span></span>
+        <button class="fbox-arrow" id="fboxPrev" aria-label="Previous investor">←</button>
+        <button class="fbox-arrow" id="fboxNext" aria-label="Next investor">→</button>
+      </div>
+    </div>
+    <div class="fbox-content" id="fboxContent">
+      <div class="loading" style="padding:40px 0;">LOADING</div>
+    </div>
+  </div>
+</section>
+
 <main class="matrix-wrap">
   <div class="matrix-head">
     <div class="matrix-title">Holdings × Investors</div>
@@ -375,6 +540,7 @@ body{
 
 <script>
 let DATA = null;
+let featuredIdx = 0;
 
 const fmt = {
   money(v){
@@ -399,9 +565,164 @@ async function load(){
     return;
   }
   renderHeader();
+  renderFeatured();
   renderMatrix();
   countUp();
   requestAnimationFrame(() => requestAnimationFrame(animateBars));
+}
+
+// ── Featured Investor Box ──
+
+function renderFeatured(){
+  const inv = DATA.investors[featuredIdx];
+  if (!inv) return;
+  document.getElementById('fboxCur').textContent = String(featuredIdx + 1).padStart(2, '0');
+  document.getElementById('fboxTot').textContent = String(DATA.investors.length).padStart(2, '0');
+  document.getElementById('fboxPrev').disabled = featuredIdx === 0;
+  document.getElementById('fboxNext').disabled = featuredIdx === DATA.investors.length - 1;
+
+  const top = (inv.holdings || []).slice(0, 8);
+  const restCount = Math.max(0, (inv.holdings || []).length - 8);
+
+  // Portrait: try photo at images/<id>.jpg, fall back to initials badge.
+  // Image is set via JS so onerror handler works reliably.
+  const portrait = `
+    <div class="fbox-portrait" id="fboxPortrait">
+      <span id="fboxInitials">${escapeHtml(inv.initials || '')}</span>
+    </div>`;
+
+  const donut = top.length ? donutSVG(top, restCount, inv.total_value_usd) : '';
+  const legend = top.length ? top.map((h, i) => `
+    <div class="legend-row">
+      <span class="legend-swatch" style="background:${donutColor(i)};opacity:${donutOpacity(i)}"></span>
+      <span class="legend-tk">${escapeHtml(h.ticker || (h.name||'').slice(0,10))}</span>
+      <span class="legend-name">${escapeHtml(h.name||'')}</span>
+      <span class="legend-pct">${fmt.pct(h.weight)}%</span>
+    </div>
+  `).join('') + (restCount > 0 ? `
+    <div class="legend-row">
+      <span class="legend-swatch" style="background:var(--ink-4)"></span>
+      <span class="legend-tk">OTHER</span>
+      <span class="legend-name">${restCount} more positions</span>
+      <span class="legend-pct">${fmt.pct(otherWeight(inv.holdings))}%</span>
+    </div>` : '') : '';
+
+  const body = top.length ? `
+    <div class="fbox-body">
+      <div>
+        ${portrait}
+        <div class="fbox-info">
+          <div class="fbox-style">${(inv.style||'').toUpperCase()} INVESTOR</div>
+          <div class="fbox-name">${escapeHtml(inv.name)}</div>
+          <div class="fbox-name-ko">${escapeHtml(inv.name_ko||'')}</div>
+          <div class="fbox-fund">${escapeHtml(inv.fund)}</div>
+        </div>
+      </div>
+      <div class="fbox-right">
+        <div class="fbox-chart-row">
+          ${donut}
+          <div class="fbox-legend">${legend}</div>
+        </div>
+        <div class="fbox-stats">
+          <div class="fbox-stat"><div class="fbox-stat-lbl">AUM</div><div class="fbox-stat-val">${fmt.money(inv.total_value_usd)}</div></div>
+          <div class="fbox-stat"><div class="fbox-stat-lbl">Positions</div><div class="fbox-stat-val">${inv.holdings_count || 0}</div></div>
+          <div class="fbox-stat"><div class="fbox-stat-lbl">Period</div><div class="fbox-stat-val small">${fmt.date(inv.period_of_report)}</div></div>
+          <div class="fbox-stat"><div class="fbox-stat-lbl">Filed</div><div class="fbox-stat-val small">${fmt.date(inv.filing_date)}</div></div>
+        </div>
+      </div>
+    </div>` : `
+    <div class="fbox-body">
+      <div>
+        ${portrait}
+        <div class="fbox-info">
+          <div class="fbox-style">${(inv.style||'').toUpperCase()} INVESTOR</div>
+          <div class="fbox-name">${escapeHtml(inv.name)}</div>
+          <div class="fbox-name-ko">${escapeHtml(inv.name_ko||'')}</div>
+          <div class="fbox-fund">${escapeHtml(inv.fund)}</div>
+        </div>
+      </div>
+      <div class="fbox-right">
+        <div class="fbox-empty">— Holdings data pending —</div>
+      </div>
+    </div>`;
+
+  document.getElementById('fboxContent').innerHTML = body;
+
+  // Photo fallback: try loading images/<id>.jpg; if it loads, swap in the img tag.
+  const portraitEl = document.getElementById('fboxPortrait');
+  const testImg = new Image();
+  testImg.onload = () => {
+    portraitEl.innerHTML = `<img src="./images/${inv.id}.jpg" alt="${escapeHtml(inv.name)}">`;
+  };
+  testImg.src = `./images/${inv.id}.jpg`;
+}
+
+function nextFeatured(delta){
+  const next = featuredIdx + delta;
+  if (next < 0 || next >= DATA.investors.length) return;
+  const c = document.getElementById('fboxContent');
+  c.classList.add('fading');
+  setTimeout(() => {
+    featuredIdx = next;
+    renderFeatured();
+    requestAnimationFrame(() => c.classList.remove('fading'));
+  }, 200);
+}
+
+// ── Donut chart (single-color with opacity steps) ──
+
+function donutColor(i){
+  // Single hue per spec — only #0057FF + grayscale for "other"
+  return '#0057FF';
+}
+function donutOpacity(i){
+  // Step down opacity by slice rank for visual separation
+  return Math.max(0.22, 1 - i * 0.10).toFixed(2);
+}
+
+function otherWeight(holdings){
+  return (holdings||[]).slice(8).reduce((s,h) => s + (h.weight||0), 0);
+}
+
+function donutSVG(top, restCount, totalValue){
+  const all = top.map((h,i) => ({
+    label: h.ticker || (h.name||'').slice(0,6),
+    value: h.value_usd || 0,
+    weight: h.weight || 0,
+    color: donutColor(i),
+    opacity: donutOpacity(i),
+  }));
+  if (restCount > 0){
+    all.push({label:'OTHER', value:0, weight: 0, color:'#a8a8a8', opacity:1});
+  }
+  // Use weights summing to 100 for visual; if top-8 < 100, the "OTHER" slice fills the gap
+  const used = top.reduce((s,h) => s + (h.weight||0), 0);
+  const otherWt = Math.max(0, 100 - used);
+  if (restCount > 0) all[all.length-1].weight = otherWt;
+  const sum = used + otherWt || 1;
+
+  const cx=140, cy=140, r=120, ri=78;
+  let a0 = -Math.PI/2;
+  let paths = '';
+  all.forEach((s,i) => {
+    if (!s.weight) return;
+    const frac = s.weight / sum;
+    const a1 = a0 + frac * Math.PI * 2;
+    const large = frac > 0.5 ? 1 : 0;
+    const x0 = cx + r*Math.cos(a0), y0 = cy + r*Math.sin(a0);
+    const x1 = cx + r*Math.cos(a1), y1 = cy + r*Math.sin(a1);
+    const xi0 = cx + ri*Math.cos(a0), yi0 = cy + ri*Math.sin(a0);
+    const xi1 = cx + ri*Math.cos(a1), yi1 = cy + ri*Math.sin(a1);
+    const d = `M ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1} L ${xi1} ${yi1} A ${ri} ${ri} 0 ${large} 0 ${xi0} ${yi0} Z`;
+    paths += `<path d="${d}" fill="${s.color}" fill-opacity="${s.opacity}" stroke="#fff" stroke-width="2"><title>${escapeHtml(s.label)} · ${s.weight.toFixed(1)}%</title></path>`;
+    a0 = a1;
+  });
+  return `
+    <svg class="fbox-donut" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+      ${paths}
+      <text class="fbox-donut-cy" x="140" y="138">${fmt.money(totalValue)}</text>
+      <text class="fbox-donut-lbl" x="140" y="156">TOTAL AUM</text>
+    </svg>`;
 }
 
 function renderHeader(){
@@ -442,15 +763,12 @@ function renderMatrix(){
       </div>`;
   }).join('');
 
+  // Click-only — no hover open
   m.querySelectorAll('.col-head').forEach(el => {
-    const open = () => openInvestor(el.dataset.investor);
-    el.addEventListener('mouseenter', open);
-    el.addEventListener('click', open);
+    el.addEventListener('click', () => openInvestor(el.dataset.investor));
   });
   m.querySelectorAll('.cell').forEach(el => {
-    const open = () => openTicker(el.dataset.cusip, el.dataset.ticker, el.dataset.name);
-    el.addEventListener('mouseenter', open);
-    el.addEventListener('click', open);
+    el.addEventListener('click', () => openTicker(el.dataset.cusip, el.dataset.ticker, el.dataset.name));
   });
 }
 
@@ -561,7 +879,16 @@ function openTicker(cusip, ticker, name){
 
 document.getElementById('panelClose').addEventListener('click', closePanel);
 document.getElementById('backdrop').addEventListener('click', closePanel);
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+document.getElementById('fboxPrev').addEventListener('click', () => nextFeatured(-1));
+document.getElementById('fboxNext').addEventListener('click', () => nextFeatured(1));
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closePanel(); return; }
+  const panelOpen = document.getElementById('panel').classList.contains('open');
+  if (panelOpen) return;  // arrows in panel mode could be confusing
+  if (e.key === 'ArrowLeft')  nextFeatured(-1);
+  if (e.key === 'ArrowRight') nextFeatured(1);
+});
 
 load();
 </script>
