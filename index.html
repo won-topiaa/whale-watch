@@ -27,7 +27,7 @@
 .matrix-group[data-style="macro"],     .fbox[data-style="macro"]     { --group: var(--c-macro); }
 .matrix-group[data-style="contrarian"],.fbox[data-style="contrarian"]{ --group: var(--c-contrarian); }
 *{margin:0;padding:0;box-sizing:border-box;}
-html,body{background:var(--bg);color:var(--ink);}
+html,body{background:var(--bg);color:var(--ink);overflow-x:hidden;}
 body{
   font-family:'Syne','Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif;
   font-feature-settings:"kern" on;
@@ -511,40 +511,127 @@ body{
 
 /* ── RESPONSIVE ── */
 @media (max-width:900px){
-  .stats{grid-template-columns:repeat(2,1fr);}
+  /* MASTHEAD — stack the three columns vertically */
+  .masthead{padding:24px 18px 36px;}
+  .mast-row{grid-template-columns:1fr;gap:14px;text-align:center;}
+  .mast-tag{justify-self:center;text-align:center;max-width:none;}
+  .mast-info{justify-self:center;text-align:center;max-width:none;}
+  .mast-title{font-size:clamp(40px,11vw,72px);white-space:normal;line-height:1.05;}
+  .mast-meta{font-size:10px;justify-content:center;gap:10px;flex-wrap:wrap;}
+  .mast-deck{font-size:14px;margin-top:22px;white-space:normal;overflow:visible;padding:0 8px;}
+
+  /* STATS */
+  .stats{grid-template-columns:repeat(2,1fr);padding:0 18px;}
   .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--rule);}
   .stat:nth-child(2){border-right:none;}
-  .matrix-wrap{margin-top:48px;}
-  .matrix-head{padding:0 18px 20px;}
-  .stats{padding:0 18px;}
-  .foot{padding:36px 18px 28px;}
+
+  /* FEATURED */
   .featured{padding:0 18px;margin-top:56px;}
   .fbox{padding:24px 22px 28px;}
   .fbox-body{grid-template-columns:1fr;gap:20px;}
   .fbox-portrait{margin:0 auto;width:180px;height:180px;font-size:58px;}
   .fbox-info{text-align:center;margin-top:14px;}
-  .fbox-name{font-size:28px;}
+  .fbox-name{font-size:30px;}
   .fbox-chart-row{grid-template-columns:1fr;gap:18px;}
   .fbox-donut{width:220px;height:220px;margin:0 auto;}
   .fbox-stats{grid-template-columns:repeat(2,1fr);gap:18px 0;}
   .fbox-stat{padding:14px 14px;border-right:1px solid var(--rule);}
   .fbox-stat:nth-child(2){border-right:none;}
   .fbox-stat:nth-child(1),.fbox-stat:nth-child(2){border-bottom:1px solid var(--rule);padding-bottom:18px;}
+
+  /* MATRIX */
+  .matrix-wrap{margin-top:48px;}
+  .matrix-head{padding:0 18px 20px;}
+  .group-head{padding:0 18px 12px;}
+  .foot{padding:36px 18px 28px;}
 }
-@media (max-width:900px){
-  .masthead{padding:24px 18px 0;}
-  .mast-row{grid-template-columns:1fr;gap:14px;text-align:center;}
-  .mast-tag{justify-self:center;text-align:center;max-width:none;}
-  .mast-info{justify-self:center;text-align:center;max-width:none;}
-  .mast-title{font-size:clamp(44px,12vw,80px);white-space:normal;}
-  .mast-meta{font-size:10px;justify-content:center;gap:10px;}
-  .mast-deck{font-size:14px;margin-top:24px;white-space:normal;overflow:visible;}
-}
+
 @media (max-width:680px){
   .stat{padding:22px 14px;}
-  .stat-val{font-size:30px;}
+  .stat-val{font-size:32px;}
   .stat-val.small{font-size:18px;}
-  .panel{padding:30px 24px 50px;}
+  .panel{padding:30px 24px 50px;width:100%;}
+  .mast-tag{font-size:11px;padding:8px 12px;}
+}
+
+/* ── PHONE (<= 480px) ── */
+@media (max-width:480px){
+  .masthead{padding:18px 14px 28px;}
+  .mast-tag{font-size:10.5px;padding:7px 11px;line-height:1.4;}
+  .mast-title{font-size:clamp(34px,10.5vw,52px);letter-spacing:0;}
+  .mast-info{font-size:11px;line-height:1.5;}
+  .mast-info strong{font-size:12px;margin-bottom:4px;}
+  .mast-meta{font-size:9px;gap:6px;padding:6px 4px 7px;}
+  .mast-meta-dot{width:2px;height:2px;}
+  .mast-deck{font-size:12.5px;margin-top:18px;padding:0 4px;line-height:1.5;}
+
+  .stats{padding:0 14px;}
+  .stat{padding:18px 12px;}
+  .stat-lbl{font-size:10px;letter-spacing:.1em;margin-bottom:10px;}
+  .stat-val{font-size:26px;}
+  .stat-val.small{font-size:16px;}
+
+  .featured{padding:0 14px;margin-top:36px;}
+  .fbox{padding:18px 16px 22px;}
+  .fbox-meta{padding-bottom:12px;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
+  .fbox-meta-lbl{font-size:10px;}
+  .fbox-counter{font-size:11px;min-width:50px;}
+  .fbox-arrow{width:34px;height:34px;font-size:15px;}
+  .fbox-body{gap:14px;}
+  .fbox-portrait{width:140px;height:140px;font-size:44px;}
+  .fbox-info{margin-top:10px;}
+  .fbox-style{font-size:11px;letter-spacing:.14em;margin-bottom:8px;}
+  .fbox-name{font-size:24px;}
+  .fbox-name-ko{font-size:12px;}
+  .fbox-fund{font-size:11px;}
+  .fbox-right{gap:18px;}
+  .fbox-donut{width:200px;height:200px;}
+  .fbox-donut-cy{font-size:19px;}
+  .legend-tk{width:74px;font-size:11px;}
+  .legend-name{font-size:10px;}
+  .legend-pct{font-size:11px;}
+  .fbox-stat{padding:12px 10px;}
+  .fbox-stat-lbl{font-size:10px;letter-spacing:.12em;margin-bottom:6px;}
+  .fbox-stat-val{font-size:18px;}
+  .fbox-stat-val.small{font-size:13px;}
+
+  .matrix-wrap{margin-top:32px;}
+  .matrix-head{padding:0 14px 16px;}
+  .matrix-title{font-size:11px;letter-spacing:.1em;}
+  .matrix-group{margin-top:24px;}
+  .group-head{padding:0 14px 10px;gap:8px;}
+  .group-title-ko{font-size:20px;}
+  .group-title-en{font-size:10px;padding:3px 7px;letter-spacing:.12em;}
+  .group-desc{display:none;}
+  .matrix-grid{grid-auto-columns:minmax(170px, 1fr);}
+
+  .col-head{padding:18px 12px 16px;}
+  .col-rank{font-size:10px;margin-bottom:10px;}
+  .col-name{font-size:16px;}
+  .col-name-ko{font-size:11px;}
+  .col-fund{font-size:10px;margin-top:12px;}
+  .col-style{font-size:9px;padding:2px 7px 1px;}
+
+  .cell{padding:11px 12px 10px;}
+  .cell-tk{font-size:13px;max-width:80px;}
+  .cell-wt{font-size:12px;}
+  .cell-empty{font-size:11px;padding:14px 12px;}
+
+  .panel{padding:24px 20px 48px;}
+  .panel-close{font-size:11px;}
+  .panel-kind{font-size:11px;margin-bottom:16px;}
+  .panel-name{font-size:26px;}
+  .panel-sub{font-size:12px;}
+  .panel-divider{margin:22px 0 18px;}
+  .panel-grid{gap:18px 12px;margin-bottom:24px;}
+  .panel-stat-lbl{font-size:10px;}
+  .panel-stat-val{font-size:20px;}
+  .panel-stat-val.small{font-size:13px;}
+  .panel-section-lbl{font-size:11px;margin-bottom:14px;padding-bottom:10px;}
+  .pb-name{font-size:12px;width:96px;}
+  .pb-val{font-size:11px;width:60px;}
+
+  .foot{padding:30px 14px 24px;font-size:11px;line-height:1.8;}
 }
 </style>
 </head>
