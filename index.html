@@ -6,7 +6,7 @@
 <title>Whale Watch / Super Investors Portfolio Matrix</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#FAFAFA;
@@ -21,7 +21,7 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{background:var(--bg);color:var(--ink);}
 body{
-  font-family:'Syne',-apple-system,BlinkMacSystemFont,sans-serif;
+  font-family:'Syne','Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif;
   font-feature-settings:"kern" on;
   -webkit-font-smoothing:antialiased;
 }
@@ -52,11 +52,10 @@ body{
 /* ── HERO ── */
 .hero{padding:96px 32px 64px;max-width:1600px;margin:0 auto;}
 .hero h1{
-  font-weight:800;font-size:clamp(46px, 8.6vw, 120px);
-  line-height:.94;letter-spacing:-.04em;
-  text-transform:uppercase;
+  font-weight:900;font-size:clamp(48px, 8.4vw, 116px);
+  line-height:1.02;letter-spacing:-.03em;
 }
-.hero h1 .slash{font-weight:400;}
+.hero h1 .slash{font-weight:300;letter-spacing:-.04em;}
 .hero p{
   font-family:'Fira Code',monospace;font-weight:400;
   font-size:13px;color:var(--ink-3);
@@ -477,8 +476,8 @@ body{
 </header>
 
 <section class="hero">
-  <h1>Super Investors<br><span class="slash">/</span> Portfolio Matrix</h1>
-  <p>10 funds. SEC 13F filings.<br>Auto-synced quarterly. Long US equity only.</p>
+  <h1>투자 대가의<br><span class="slash">/</span> 포트폴리오</h1>
+  <p>10 FUNDS <span class="slash" style="color:var(--ink-4);margin:0 8px">·</span> SEC 13F <span class="slash" style="color:var(--ink-4);margin:0 8px">·</span> 분기별 자동 갱신 <span class="slash" style="color:var(--ink-4);margin:0 8px">·</span> US LONG ONLY</p>
 </section>
 
 <section class="stats">
