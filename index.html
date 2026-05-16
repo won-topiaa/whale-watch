@@ -17,7 +17,15 @@
   --rule:#e6e6e6;
   --rule-2:#f0f0f0;
   --blue:#0057FF;
+  /* Group accents */
+  --c-value:#0057FF;
+  --c-macro:#C2410C;
+  --c-contrarian:#BE123C;
+  --group:var(--blue);
 }
+.matrix-group[data-style="value"],     .fbox[data-style="value"]     { --group: var(--c-value); }
+.matrix-group[data-style="macro"],     .fbox[data-style="macro"]     { --group: var(--c-macro); }
+.matrix-group[data-style="contrarian"],.fbox[data-style="contrarian"]{ --group: var(--c-contrarian); }
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{background:var(--bg);color:var(--ink);}
 body{
@@ -179,21 +187,22 @@ body{
 }
 .fbox-portrait{
   width:240px;height:240px;border-radius:50%;
-  border:2px solid var(--blue);
+  border:2px solid var(--group);
   display:flex;align-items:center;justify-content:center;
-  font-weight:800;font-size:78px;color:var(--blue);
+  font-weight:800;font-size:78px;color:var(--group);
   letter-spacing:-.04em;
   background:#fff;
   overflow:hidden;
   flex-shrink:0;
+  transition:border-color .3s;
 }
 .fbox-portrait img{width:100%;height:100%;object-fit:cover;display:block;}
 .fbox-info{margin-top:22px;}
 .fbox-style{
   font-family:'Fira Code',monospace;font-weight:500;
-  font-size:10px;color:var(--blue);
+  font-size:10px;color:var(--group);
   text-transform:uppercase;letter-spacing:.16em;
-  margin-bottom:10px;
+  margin-bottom:10px;transition:color .3s;
 }
 .fbox-name{
   font-weight:800;font-size:36px;line-height:.96;
@@ -272,7 +281,6 @@ body{
   display:flex;align-items:baseline;gap:14px;
   padding:0 32px 24px;
   border-bottom:1px solid var(--ink);
-  margin:0 0 0;
 }
 .matrix-title{
   font-family:'Fira Code',monospace;
@@ -280,11 +288,37 @@ body{
   text-transform:uppercase;letter-spacing:.12em;
 }
 .matrix-title.right{margin-left:auto;color:var(--ink-4);}
+
+/* ── GROUP SECTIONS ── */
+.matrix-group{margin-top:36px;}
+.matrix-group:first-of-type{margin-top:32px;}
+.group-head{
+  display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+  padding:0 32px 14px;
+  margin-bottom:0;
+  border-bottom:2px solid var(--group);
+}
+.group-title-ko{
+  font-family:'Playfair Display',serif;font-weight:700;
+  font-size:clamp(20px,2.4vw,30px);
+  color:var(--group);letter-spacing:-.01em;
+}
+.group-title-en{
+  font-family:'Fira Code',monospace;font-weight:500;
+  font-size:11px;color:var(--group);
+  text-transform:uppercase;letter-spacing:.16em;
+  padding:3px 8px;border:1px solid var(--group);
+}
+.group-desc{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:13px;color:var(--ink-3);
+  margin-left:auto;
+}
 .matrix-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .matrix-grid{
   display:grid;
-  grid-template-columns:repeat(10, minmax(170px, 1fr));
-  min-width:1250px;
+  grid-auto-flow:column;
+  grid-auto-columns:minmax(185px, 1fr);
 }
 .col{border-right:1px solid var(--rule);}
 .col:last-child{border-right:none;}
@@ -297,9 +331,9 @@ body{
   position:relative;
 }
 .col-head:hover{background:#fff;}
-.col-head:hover .col-rank{color:var(--blue);}
+.col-head:hover .col-rank{color:var(--group);}
 .col-head:hover::after{
-  content:'';position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--blue);
+  content:'';position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--group);
 }
 .col-rank{
   font-family:'Fira Code',monospace;font-weight:500;
@@ -326,9 +360,9 @@ body{
 }
 .col-style{
   display:inline-block;font-family:'Fira Code',monospace;font-weight:500;
-  font-size:8px;color:var(--blue);
+  font-size:8px;color:var(--group);
   margin-top:10px;text-transform:uppercase;letter-spacing:.16em;
-  padding:2px 6px 1px;border:1px solid var(--blue);
+  padding:2px 6px 1px;border:1px solid var(--group);
 }
 
 /* ── HOLDING CELL ── */
@@ -339,8 +373,8 @@ body{
   transition:background .15s;
 }
 .cell:hover{background:#fff;}
-.cell:hover .cell-bar{background:var(--blue);}
-.cell:hover .cell-tk{color:var(--blue);}
+.cell:hover .cell-bar{background:var(--group);}
+.cell:hover .cell-tk{color:var(--group);}
 .cell-row{
   display:flex;align-items:baseline;justify-content:space-between;
   margin-bottom:7px;gap:8px;
@@ -437,7 +471,7 @@ body{
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 .pb-track{flex:1;height:2px;background:var(--rule-2);overflow:hidden;}
-.pb-fill{height:100%;background:var(--blue);transition:width .6s cubic-bezier(.2,.8,.2,1);}
+.pb-fill{height:100%;background:var(--group);transition:width .6s cubic-bezier(.2,.8,.2,1);}
 .pb-val{
   font-family:'Fira Code',monospace;font-weight:400;font-size:10px;
   color:var(--ink-2);flex-shrink:0;width:62px;text-align:right;
@@ -579,14 +613,10 @@ body{
 
 <main class="matrix-wrap">
   <div class="matrix-head">
-    <div class="matrix-title">Holdings × Investors</div>
-    <div class="matrix-title right">Hover for detail →</div>
+    <div class="matrix-title">투자 스타일별 매트릭스</div>
+    <div class="matrix-title right">Click for detail →</div>
   </div>
-  <div class="matrix-scroll">
-    <div class="matrix-grid" id="matrix">
-      <div class="loading" style="grid-column:1/-1;">LOADING DATA</div>
-    </div>
-  </div>
+  <div id="matrix"><div class="loading">LOADING DATA</div></div>
 </main>
 
 <footer class="foot">
@@ -639,6 +669,8 @@ async function load(){
 function renderFeatured(){
   const inv = DATA.investors[featuredIdx];
   if (!inv) return;
+  // Tint featured box with the current investor's group color
+  document.querySelector('.fbox').setAttribute('data-style', inv.style || '');
   document.getElementById('fboxCur').textContent = String(featuredIdx + 1).padStart(2, '0');
   document.getElementById('fboxTot').textContent = String(DATA.investors.length).padStart(2, '0');
   document.getElementById('fboxPrev').disabled = featuredIdx === 0;
@@ -654,10 +686,10 @@ function renderFeatured(){
       <span id="fboxInitials">${escapeHtml(inv.initials || '')}</span>
     </div>`;
 
-  const donut = top.length ? donutSVG(top, restCount, inv.total_value_usd) : '';
+  const donut = top.length ? donutSVG(top, restCount, inv.total_value_usd, inv.style) : '';
   const legend = top.length ? top.map((h, i) => `
     <div class="legend-row">
-      <span class="legend-swatch" style="background:${donutColor(i)};opacity:${donutOpacity(i)}"></span>
+      <span class="legend-swatch" style="background:${donutColor(i, inv.style)};opacity:${donutOpacity(i)}"></span>
       <span class="legend-tk">${escapeHtml(h.ticker || (h.name||'').slice(0,10))}</span>
       <span class="legend-name">${escapeHtml(h.name||'')}</span>
       <span class="legend-pct">${fmt.pct(h.weight)}%</span>
@@ -734,12 +766,15 @@ function nextFeatured(delta){
 
 // ── Donut chart (single-color with opacity steps) ──
 
-function donutColor(i){
-  // Single hue per spec — only #0057FF + grayscale for "other"
-  return '#0057FF';
+const STYLE_HEX = {value:'#0057FF', macro:'#C2410C', contrarian:'#BE123C'};
+function styleColor(style){
+  return STYLE_HEX[style] || '#0057FF';
+}
+function donutColor(i, style){
+  // Single hue per group, opacity-stepped by slice rank below
+  return styleColor(style);
 }
 function donutOpacity(i){
-  // Step down opacity by slice rank for visual separation
   return Math.max(0.22, 1 - i * 0.10).toFixed(2);
 }
 
@@ -747,12 +782,12 @@ function otherWeight(holdings){
   return (holdings||[]).slice(8).reduce((s,h) => s + (h.weight||0), 0);
 }
 
-function donutSVG(top, restCount, totalValue){
+function donutSVG(top, restCount, totalValue, style){
   const all = top.map((h,i) => ({
     label: h.ticker || (h.name||'').slice(0,6),
     value: h.value_usd || 0,
     weight: h.weight || 0,
-    color: donutColor(i),
+    color: donutColor(i, style),
     opacity: donutOpacity(i),
   }));
   if (restCount > 0){
@@ -813,29 +848,49 @@ function renderHeader(){
   document.getElementById('latestFiling').textContent = latest ? fmt.date(latest).replaceAll('-','.') : '—';
 }
 
+function colHTML(inv, idx){
+  const top = (inv.holdings || []).slice(0, 10);
+  return `
+    <div class="col">
+      <div class="col-head" data-investor="${inv.id}">
+        <div class="col-rank">FUND ${String(idx+1).padStart(2,'0')}</div>
+        <div class="col-name">${escapeHtml(inv.name)}</div>
+        <div class="col-name-ko">${escapeHtml(inv.name_ko||'')}</div>
+        <div class="col-fund">${escapeHtml(inv.fund)}</div>
+        <div class="col-style">${(inv.style||'').toUpperCase()}</div>
+      </div>
+      ${top.length ? top.map(h => `
+        <div class="cell" data-investor="${inv.id}" data-cusip="${h.cusip||''}" data-ticker="${escapeHtml(h.ticker||'')}" data-name="${escapeHtml(h.name||'')}">
+          <div class="cell-row">
+            <span class="cell-tk">${escapeHtml(h.ticker || (h.name||'').slice(0,8))}</span>
+            <span class="cell-wt">${fmt.pct(h.weight)}%</span>
+          </div>
+          <div class="cell-bar-track"><div class="cell-bar" data-w="${Math.min(100, h.weight||0)}"></div></div>
+        </div>
+      `).join('') : `<div class="cell-empty">— Pending sync —</div>`}
+    </div>`;
+}
+
 function renderMatrix(){
   const m = document.getElementById('matrix');
-  m.innerHTML = DATA.investors.map((inv, idx) => {
-    const top = (inv.holdings || []).slice(0, 10);
+  const styleOrder = ['value','macro','contrarian'];
+  m.innerHTML = styleOrder.map(s => {
+    const meta = DATA.styles[s];
+    const list = DATA.investors.filter(inv => inv.style === s);
+    if (!list.length) return '';
     return `
-      <div class="col">
-        <div class="col-head" data-investor="${inv.id}">
-          <div class="col-rank">FUND ${String(idx+1).padStart(2,'0')}</div>
-          <div class="col-name">${escapeHtml(inv.name)}</div>
-          <div class="col-name-ko">${escapeHtml(inv.name_ko||'')}</div>
-          <div class="col-fund">${escapeHtml(inv.fund)}</div>
-          <div class="col-style">${(inv.style||'').toUpperCase()}</div>
+      <section class="matrix-group" data-style="${s}">
+        <div class="group-head">
+          <div class="group-title-ko">${escapeHtml(meta.label)}</div>
+          <div class="group-title-en">${s.toUpperCase()} · ${list.length} FUNDS</div>
+          <div class="group-desc">${escapeHtml(meta.description||'')}</div>
         </div>
-        ${top.length ? top.map(h => `
-          <div class="cell" data-investor="${inv.id}" data-cusip="${h.cusip||''}" data-ticker="${escapeHtml(h.ticker||'')}" data-name="${escapeHtml(h.name||'')}">
-            <div class="cell-row">
-              <span class="cell-tk">${escapeHtml(h.ticker || (h.name||'').slice(0,8))}</span>
-              <span class="cell-wt">${fmt.pct(h.weight)}%</span>
-            </div>
-            <div class="cell-bar-track"><div class="cell-bar" data-w="${Math.min(100, h.weight||0)}"></div></div>
+        <div class="matrix-scroll">
+          <div class="matrix-grid">
+            ${list.map(inv => colHTML(inv, DATA.investors.indexOf(inv))).join('')}
           </div>
-        `).join('') : `<div class="cell-empty">— Pending sync —</div>`}
-      </div>`;
+        </div>
+      </section>`;
   }).join('');
 
   // Click-only — no hover open
