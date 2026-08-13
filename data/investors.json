@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-12T12:04:31.271883+00:00",
+  "last_updated": "2026-08-13T12:04:35.895139+00:00",
   "schema_version": 1,
   "note": "Holdings are populated by scripts/fetch_13f.py. Until the first run, holdings arrays are empty and the UI shows a 'data pending' state.",
   "investors": [
@@ -693,37 +693,45 @@
       "color": "#10b981",
       "initials": "MP",
       "tagline": "버핏 추종자. 4-5종목 초집중 투자.",
-      "filing_date": "2026-05-14",
-      "period_of_report": "2026-03-31",
-      "total_value_usd": 422885142.0,
-      "holdings_count": 3,
+      "filing_date": "2026-08-13",
+      "period_of_report": "2026-06-30",
+      "total_value_usd": 326749980.0,
+      "holdings_count": 4,
       "holdings": [
         {
           "cusip": "93627C101",
           "name": "WARRIOR MET COAL INC",
-          "value_usd": 168678908.0,
-          "shares": 1810831,
-          "weight": 39.8876,
+          "value_usd": 141547098.0,
+          "shares": 1744050,
+          "weight": 43.3197,
           "ticker": "HCC"
         },
         {
           "cusip": "H8817H100",
           "name": "TRANSOCEAN LTD",
-          "value_usd": 135203415.0,
-          "shares": 20392672,
-          "weight": 31.9717,
+          "value_usd": 99749443.0,
+          "shares": 20398659,
+          "weight": 30.5278,
           "ticker": ""
         },
         {
           "cusip": "020764106",
           "name": "ALPHA METALLURGICAL RESOUR I",
-          "value_usd": 119002819.0,
-          "shares": 579738,
-          "weight": 28.1407,
+          "value_usd": 85305978.0,
+          "shares": 517194,
+          "weight": 26.1074,
           "ticker": "AMR"
+        },
+        {
+          "cusip": "48581R205",
+          "name": "KASPI KZ JSC",
+          "value_usd": 147461.0,
+          "shares": 1702,
+          "weight": 0.0451,
+          "ticker": "KSPI"
         }
       ],
-      "accession_number": "0001549575-26-000009"
+      "accession_number": "0001549575-26-000015"
     },
     {
       "id": "dalio",
