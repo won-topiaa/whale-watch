@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-22T15:33:17.166949+00:00",
+  "last_updated": "2026-09-23T15:29:01.646729+00:00",
   "schema_version": 1,
   "note": "Holdings are populated by scripts/fetch_13f.py. Until the first run, holdings arrays are empty and the UI shows a 'data pending' state.",
   "investors": [
